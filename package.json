@@ -1,0 +1,20 @@
+{
+  "name": "date-to-text",
+  "version": "1.0.0",
+  "description": "converts date to text",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Kollars",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp-pug": "^3.2.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-uglify": "^2.0.1"
+  }
+}
