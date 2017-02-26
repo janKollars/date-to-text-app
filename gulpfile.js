@@ -11,38 +11,38 @@ var browserSync = require('browser-sync').create();
 gulp.task('serve', ['pug', 'sass', 'js'], function() {
 
   browserSync.init({
-    server: "./_build"
+    server: "./docs"
   });
   gulp.watch("index.pug", ['pug']);
   gulp.watch("assets/css/*", ['sass']);
   gulp.watch("assets/js/*", ['js']);
-  gulp.watch("_build/**").on('change', browserSync.reload);
+  gulp.watch("docs/**").on('change', browserSync.reload);
 });
 
 gulp.task('pug', function buildHTML() {
   return gulp.src('index.pug')
   .pipe(pug())
   .pipe(htmlmin({collapseWhitespace: true}))
-  .pipe(gulp.dest('_build'));
+  .pipe(gulp.dest('docs'));
 });
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src("./assets/css/*")
+  return gulp.src("./assets/css/styles.sass")
     .pipe(sass())
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest("_build/assets/css"))
+    .pipe(gulp.dest("docs/assets/css"))
     .pipe(browserSync.stream());
 });
 
 gulp.task('js', function() {
   return gulp.src('assets/js/*')
   .pipe(uglify())
-  .pipe(gulp.dest('_build/assets/js'));
+  .pipe(gulp.dest('docs/assets/js'));
 });
 
 gulp.task('default', ['serve']);
