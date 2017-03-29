@@ -21,7 +21,7 @@ if(aktm < 10) {
 datum.value = aktt + "." + aktm+ "." + aktj;
 
 // eigentliche Translation
-document.getElementById("form").addEventListener("submit", function() {
+document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault();
   var datumInput = datum.value.split(".");
   result.innerHTML = "the " + getTag(datumInput[0]) + " of " + getMonat(datumInput[1]) + " " + getJahr(datumInput[2]);
