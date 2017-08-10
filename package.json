@@ -3,18 +3,26 @@
   "version": "1.0.0",
   "description": "converts date to text",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/janKollars/Date-to-text.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Kollars",
   "license": "MIT",
   "devDependencies": {
-    "browser-sync": "^2.18.8",
-    "gulp-pug": "^3.2.0",
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-sass": "^3.1.0",
-    "gulp-autoprefixer": "^3.1.1",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-clean-css": "^3.0.3",
-    "gulp-uglify": "^2.0.1"
+    "gulp-uglify": "^3.0.0",
+    "gulp-babel": "^6.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "del": "^3.0.0"
   }
 }

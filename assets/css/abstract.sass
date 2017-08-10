@@ -1,0 +1,18 @@
+$primary-color-dark:   #0097a7
+$primary-color:        #00bcd4
+$primary-color-light:  #b2ebf2
+$primary-color-text:   #fff
+$accent-color:         #cddc39
+$primary-text-color:   #212121
+$secondary-text-color: #757575
+$divider-color:        #bdbdbd
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400'
+// Bootstrap variables
+$xs: 0
+$sm: 544px
+$md: 768px
+$lg: 992px
+
+=breakp($size)
+  @media (min-width: $size)
+    @content

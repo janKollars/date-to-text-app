@@ -1,48 +1,60 @@
-var gulp = require('gulp');
-var pug = require('gulp-pug');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var htmlmin = require('gulp-htmlmin');
-var cleanCSS = require('gulp-clean-css');
-var uglify = require('gulp-uglify');
-var browserSync = require('browser-sync').create();
-
-// Static Server + watching scss/html files
-gulp.task('serve', ['pug', 'sass', 'js'], function() {
-
-  browserSync.init({
-    server: "./docs"
-  });
-  gulp.watch("index.pug", ['pug']);
-  gulp.watch("assets/css/*", ['sass']);
-  gulp.watch("assets/js/*", ['js']);
-  gulp.watch("docs/**").on('change', browserSync.reload);
-});
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const pug = require('gulp-pug');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const htmlmin = require('gulp-htmlmin');
+const cleanCSS = require('gulp-clean-css');
+const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
+const del = require('del');
+const browserSync = require('browser-sync');
 
 gulp.task('pug', function buildHTML() {
   return gulp.src('index.pug')
   .pipe(pug())
-  .pipe(htmlmin({collapseWhitespace: true}))
-  .pipe(gulp.dest('docs'));
+  .pipe(gutil.env.type === 'prod' ? htmlmin({collapseWhitespace: true}) : gutil.noop())
+  .pipe(gulp.dest('docs'))
+  .pipe(browserSync.reload({ stream: true }));
 });
 
-// Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
   return gulp.src("./assets/css/styles.sass")
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: ['css', 'node_modules'],
+      onError: browserSync.notify,
+    }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
-    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gutil.env.type === 'prod' ? cleanCSS({ compatibility: 'ie8' }) : gutil.noop())
     .pipe(gulp.dest("docs/assets/css"))
-    .pipe(browserSync.stream());
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('js', function() {
   return gulp.src('assets/js/*')
-  .pipe(uglify())
-  .pipe(gulp.dest('docs/assets/js'));
+  .pipe(babel({
+    presets: ['es2015'],
+  }))
+  .pipe(gutil.env.type === 'prod' ? uglify() : gutil.noop())
+  .pipe(gulp.dest('docs/assets/js'))
+  .pipe(browserSync.reload({ stream: true }));
 });
 
-gulp.task('default', ['serve']);
+gulp.task('fonts', function () {
+  del('./docs/assets/fonts/*');
+  return gulp.src('assets/fonts/*')
+  .pipe(gulp.dest('docs/assets/fonts'))
+  .pipe(browserSync.reload({ stream: true }));
+})
+
+gulp.task('default', ['pug', 'sass', 'js', 'fonts'], function () {
+  browserSync({server: './docs'});
+
+  gulp.watch('./**.pug', ['pug']);
+  gulp.watch('./assets/css/*', ['sass']);
+  gulp.watch('./assets/js/*', ['js']);
+  gulp.watch('./assets/fonts/*', ['fonts']);
+});
