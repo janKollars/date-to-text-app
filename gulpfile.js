@@ -36,7 +36,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
   return gulp.src('assets/js/*')
   .pipe(babel({
-    presets: ['es2015'],
+    presets: ['env'],
   }))
   .pipe(gutil.env.type === 'prod' ? uglify() : gutil.noop())
   .pipe(gulp.dest('docs/assets/js'))
