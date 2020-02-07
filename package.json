@@ -8,22 +8,26 @@
     "url": "https://github.com/janKollars/Date-to-text.git"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "build": "env NODE_ENV=prod gulp"
   },
   "author": "Jan Kollars",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "browser-sync": "^2.18.13",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.1.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-clean-css": "^3.0.3",
-    "gulp-htmlmin": "^4.0.0",
-    "gulp-pug": "^3.3.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^3.0.0"
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
   }
 }
