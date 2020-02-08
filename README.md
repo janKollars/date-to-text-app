@@ -1,3 +1,3 @@
-# Date-to-text
+# Web interface for date-to-text conversion
 
-Date to text converter I made last year. Needless to say, I had inferior vanilla.js skills at the time. It works though.
+This web app was made for a company which needed dates to be fully spelt in legal documents. The project was how I got into programming.
