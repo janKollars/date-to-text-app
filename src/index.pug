@@ -1,6 +1,14 @@
 doctype html
-html(lang="de")
-  include includes/head.pug
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    meta(name="description" content="Date to text converter")
+    title Date to text converter
+    style
+      include ../docs/assets/css/styles.css
 
   body
 
@@ -11,8 +19,8 @@ html(lang="de")
         main
           .row
             form(id="form")
-              label(for="datum") Date
-              input(type="text" name="datum" id="datum" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" value="")
+              label(for="date") Date
+              input(type="text" name="date" id="date" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" value="")
             .half
               label(for="result") Result
               textarea#result
@@ -22,4 +30,5 @@ html(lang="de")
       .card.info
         p Select the text field for the date and hit enter. The result will be copied to your clipboard.
 
-    script(src="assets/js/function.js")
+    script
+      include ../docs/assets/js/function.js

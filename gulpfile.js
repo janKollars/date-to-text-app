@@ -1,4 +1,4 @@
-const { src, dest, watch, parallel } = require('gulp');
+const { src, dest, watch, parallel, series } = require('gulp');
 const pug = require('gulp-pug');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
@@ -12,11 +12,12 @@ const browserSync = require('browser-sync');
 function buildHTML() {
   let html = src('src/index.pug')
     .pipe(pug())
-    .pipe(dest('docs'))
   if (process.env.NODE_ENV === 'prod') {
     html = html.pipe(htmlmin({ collapseWhitespace: true }));
   }
-  return html.pipe(browserSync.reload({ stream: true }));
+  return html
+    .pipe(dest('docs'))
+    .pipe(browserSync.reload({ stream: true }));
 };
 
 function buildCSS() {
@@ -58,8 +59,14 @@ function copyFonts() {
 
 browserSync({server: './docs'});
 watch('src/**.pug', buildHTML);
-watch('src/assets/css/*', buildCSS);
-watch('src/assets/js/*', buildJS);
+watch('src/assets/css/*', series(buildCSS, buildHTML));
+watch('src/assets/js/*', series(buildJS, buildHTML));
 watch('src/assets/fonts/*', copyFonts);
 
-exports.default = parallel(buildHTML, buildCSS, buildJS, copyFonts);
+exports.default = parallel(
+  series(
+    parallel(buildCSS, buildJS),
+    buildHTML
+  ),
+  copyFonts
+);

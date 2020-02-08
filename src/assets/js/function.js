@@ -1,4 +1,4 @@
-var datum = document.getElementById("datum");
+var date = document.getElementById("date");
 var result = document.getElementById("result");
 
 var ordinalNr = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"];
@@ -6,7 +6,6 @@ var zehnerArr = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eigh
 var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var countArr = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 
-// aktuelles Datum in Input einfügen
 var d = new Date();
 var aktt = d.getDate();
 var aktm = d.getMonth() + 1;
@@ -18,18 +17,18 @@ if(aktt < 10) {
 if(aktm < 10) {
   aktm = "0" + aktm;
 }
-datum.value = aktt + "." + aktm+ "." + aktj;
+date.value = aktt + "." + aktm+ "." + aktj;
 
 // eigentliche Translation
 document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault();
-  var datumInput = datum.value.split(".");
-  result.innerHTML = "the " + getTag(datumInput[0]) + " of " + getMonat(datumInput[1]) + " " + getJahr(datumInput[2]);
+  var dateInput = date.value.split(".");
+  result.innerHTML = "the " + generateDay(dateInput[0]) + " of " + generateMonth(dateInput[1]) + " " + generateYear(dateInput[2]);
   result.select();
   document.execCommand('copy');
 });
 
-function getTag(day) {
+function generateDay(day) {
   if(day <= 20) {
     return ordinalNr[day - 1];
   }
@@ -43,11 +42,11 @@ function getTag(day) {
   }
 }
 
-function getMonat(month) {
+function generateMonth(month) {
   return monthNames[month - 1];
 }
 
-function getJahr(year) {
+function generateYear(year) {
   var jt = year[0];
   var jh = year[1];
   var jz = year[2];
